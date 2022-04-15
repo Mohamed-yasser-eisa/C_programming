@@ -89,7 +89,38 @@ int main()
 
     puts("**************************************************");
     puts("Size of an array:\n");
+    puts("Array size = number of elements * sizeof(data type)\n");
+    printf("Size of: char arr[5]  = %i bytes.\n", sizeof(aChar));
+    printf("Size of: short arr[5] = %i bytes.\n", sizeof(aShort));
+    printf("Size of: int arr[5]   = %i bytes.\n", sizeof(arr2));
 
+    puts("**************************************************");
+    puts("Scan and print array elements:\n");
+    puts("We use for loop to scan and print array elements.\n");
+    puts("please enter 5 int for array elements:");
+    int i=0;
+    for(i=0; i<SIZE; ++i)
+    {
+        scanf("%i", &arr2[i]); //&(arr2+i);
+    }
+    puts("You entered elements:\nArray elements = ");
+    for(i=0; i<SIZE; ++i)
+    {
+        printf("%i\t", arr2[i]); // *(arr+i)
+    }
+    puts("\n");
+    puts("**************************************************");
+    puts("Pointer to array:\n");
+    puts("int(*ptr)[5]: ptr is a pointer to array of 5 int.\n");
+    puts("int *ptr[5]: ptr is an array of 5 pointers to int.\n");
+    puts("step of pointer to array = array size.\n");
+    puts("You need to use (**ptr) or (*ptr[i]) to access array elements using pointer to array.\n");
+
+    int (*ptr)[5] = &arr2;//ptr is a pointer to array.
+    printf("ptr  = %i\n", ptr);
+    printf("*ptr = %i\n", *ptr);//*ptr is a pointer to int
+    printf("**ptr = %i\n", **ptr);//**ptr is the first element in the array
+    
 
 
 
