@@ -37,7 +37,7 @@ int main()
 
 
 
-    puts("**************************************************");
+    puts("--------------------------------------------------");
     puts("Default values inside arrays:\n");
 
     puts("-->(1) Global arrays are initialized by zeros by default:");
@@ -68,7 +68,7 @@ int main()
     int arr6[SIZE] = {10};
     print_array(arr6);
 
-    puts("**************************************************");
+    puts("--------------------------------------------------");
     puts("Name of array:\n");
     puts("--> Name of an array is a \"const pointer\" to first element in the array, and \n"
     "\tinitialized with fist element's address\n");
@@ -87,14 +87,14 @@ int main()
     puts("--> &arr = arr;");
     puts("--> &arr+1 = arr + sizeof(array); because step of (&arr +1) is equal to size of array;");
 
-    puts("**************************************************");
+    puts("--------------------------------------------------");
     puts("Size of an array:\n");
     puts("Array size = number of elements * sizeof(data type)\n");
     printf("Size of: char arr[5]  = %i bytes.\n", sizeof(aChar));
     printf("Size of: short arr[5] = %i bytes.\n", sizeof(aShort));
     printf("Size of: int arr[5]   = %i bytes.\n", sizeof(arr2));
 
-    puts("**************************************************");
+    puts("--------------------------------------------------");
     puts("Scan and print array elements:\n");
     puts("We use for loop to scan and print array elements.\n");
     puts("please enter 5 int for array elements:");
@@ -109,8 +109,10 @@ int main()
         printf("%i\t", arr2[i]); // *(arr+i)
     }
     puts("\n");
-    puts("**************************************************");
+
+    puts("--------------------------------------------------");
     puts("Pointer to array:\n");
+
     puts("int(*ptr)[5]: ptr is a pointer to array of 5 int.\n");
     puts("int *ptr[5]: ptr is an array of 5 pointers to int.\n");
     puts("step of pointer to array = array size.\n");
@@ -120,14 +122,72 @@ int main()
     printf("ptr  = %i\n", ptr);
     printf("*ptr = %i\n", *ptr);//*ptr is a pointer to int
     printf("**ptr = %i\n", **ptr);//**ptr is the first element in the array
+
+    puts("--------------------------------------------------");
+    puts("String and array:\n");
+
+    puts("String is one dimentional array of characters, terminated with NULL or '\\0'. \n");
+
+    char hello1[6] = {'H','e','l','l','o','\0'};
+
+    char hello2[] = "Hello";// "Hello" is an array stored in (.rodata). You can copy it, but can not modify it.
+
+    printf("hello1 = %s\n", hello1);
+    printf("hello2 = %s\n", hello2);
+    /*sizeof(array of string) = number of characters in string + 1 (one for NULL operator at the end of array)*/
+    printf("sizeof(hello1) = %i\n\n", sizeof(hello1));
+
+    puts("Adding number to \"string\" as following: (\"Hellow\"+3) will add step of pointer to char");
+    
+    printf("Hello World!\n"+3);
+
+    puts("--------------------------------------------------");
+    puts("Pointers with string:\n");
+    char *pttr = "Hi! I'am Mohamed";
+    printf("%s\n", pttr);
+    printf("%c\n", *pttr);
+    printf("%i\n", *pttr);
+    printf("%c\n", *(pttr+5));
+    printf("%i\n", *(pttr+5));
+    printf("%s\n", (pttr+5));
+
+    puts("--------------------------------------------------");
+    puts("Two Dimentional arrays:\n\n");
+    puts("--> We declaring a two dimentional array as follow: int arr[5][10].");
+    puts("--> We initialize a two dimentional array as follow: int arr[3][4] = { {1,2,3,4}, {1,2,3,4}, {1,2,3,4} }.\n");
+    puts("--> It's allowed not to mention size of first dimention as follow: int arr[][4];");
+    puts("--> It's not allowed not to mention size of second dimention as follow: int arr[3][].");
+
+    int two_dimention[4][3] = {{1,2,3}, {4,5,6}, {7,8,9}, {10,11,12}};//{1,2,3,4,5,6,7,8,9,10,11,12}
+    int ii=0,jj=0;
+    for(ii=0; ii<4; ++ii)
+    {
+        for(jj=0; jj<3; ++jj)
+        {
+            printf("Array [%i][%i] = %i\n", ii, jj, two_dimention[ii][jj]);
+        }
+    }
+    puts("----  ----    ----    ----  ----    ----");
+    puts("--> Name of two dimentional array is a pointer to second array.");
+    puts("--> int arr[3][4]; \"arr\" is pointer to array of 4 int.\n");
+    puts("--> step of pointer to array = size of array");
+    puts("--> we you dereference pointer to array, it becomes pointer to int");
+
+
+    /* first (*) will make two_dimention pointer to int, second (*) returns value it that address */
+    /* step of two_dimention before first (*) is of size 12 bytes (int[3]) */
+    /* step of two_dimention after first (*) is of size 4 bytes (int) */
+
+    printf("Array [0][0] = %i\n", **two_dimention  );
+    printf("Array [1][2] = %i\n", *(*(two_dimention+1)+2)  );
+    printf("element in arr [2][1] = %i\n", *(*(two_dimention+2)+1)  );
     
 
 
 
 
-
     puts("**************************************************");
-    //gets();
+    gets(pttr);
     return 0;
 }
 
