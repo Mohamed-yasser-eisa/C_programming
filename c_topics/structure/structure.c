@@ -7,7 +7,7 @@ struct car
     int x;
     int y;
     short z;
-}f;
+}f = {10,22,33};
 
 struct student
 {
@@ -15,9 +15,35 @@ struct student
     float GPA;
     char name[10];
     short int day[4];
+}s={10,3.5,"Adel Mosa",{4,3,2,1}};
+
+struct client
+{
+    int id;
+    float sallary;
 };
 
+struct manager
+{
+    int id;
+    struct client m;
+};
+
+struct customer
+{
+    int number;
+    struct customer *c;
+};
+
+
 int i=0;
+
+
+struct car call_value(struct car cv);
+void call_reference(struct car *ptr);
+
+
+
 
 int main()
 {
@@ -96,11 +122,128 @@ int main()
     }
     puts("\b }");
     printf("name = %s\n", st3.name);
-    
 
-    
+    puts("------------------------------------------------------------");
+    puts("Pointer to struct:\n");
+    puts("--> Access and step of pointer to struct equals to size of struct");
+    puts("--> When we derefernce pointer to struct it now access number of bytes = struct size");
+
+    puts("");
+    struct car *ptr1 = &f; //now ptr stores address of struct car f;
+    // *ptr1 === f;
+    printf("(*ptr1).x = %i\n", (*ptr1).x);
+    printf("(*ptr1).y = %i\n", (*ptr1).y);
+    printf("(*ptr1).z = %i\n", (*ptr1).z);
+    puts("----     ----  Or use arrow operator (->) as follow  ----    ----    ----");
+    printf("ptr1 -> x = %i\n", ptr1 -> x);
+    printf("ptr1 -> y = %i\n", ptr1 -> y);
+    printf("ptr1 -> z = %i\n", ptr1 -> z);
+    puts("----     ----    ----    ----    ----");
+    printf("size of f = %i bytes\n", sizeof(f));
+    printf("f     = %i\n", f);//value of first member
+    printf("&f    = %i\n", &f);//address of first member
+    printf("&f.Id = %i\n", &f.x);//address of first member
+    printf("&f+1  = %i\n", &f+1);//step of struct size
+    printf("&f.Id = %i\n", &f.x+1);//step of int size
+    puts("");
+    printf("ptr1       = %i\n", ptr1);
+    printf("ptr1 +1    = %i\n", ptr1+1);
+    printf("*ptr1      = %i\n", *ptr1);
+    printf("*(ptr1 +1) = %i\n", *(ptr1+1));
+    printf("f = %i\n", f);
+    puts("------------------------------------------------------------");
+    puts("How to access member in struct of type array, using pointer\n");
+
+    struct student *ptr2 = &s;
+    printf("ptr2 -> Id   = %i\n", ptr2 -> Id);
+    printf("ptr2 -> GPA  = %0.2f\n", ptr2 -> GPA);
+    printf("ptr2 -> name = %s\n", ptr2 -> name);
+    printf("ptr2 -> day[0]  = %hd\n", ptr2 -> day[0]);
+    printf("ptr2 -> day[1]  = %hd\n", ptr2 -> day[1]);
+    printf("ptr2 -> day[2]  = %hd\n", ptr2 -> day[2]);
+    printf("ptr2 -> day[3]  = %hd\n", ptr2 -> day[3]);
+    puts("----     ----    ----    ----    ----");
+    strcpy(ptr2 -> name, "Ahmed Moh");
+    printf("ptr2 -> name = %s\n", ptr2 -> name);
+
+    puts("------------------------------------------------------------");
+    puts("Call by value with struct:\n");
+
+    struct car cv1 = {10,20,30};
+    printf("cv1.x = %i\n", cv1.x);
+    printf("cv1.y = %i\n", cv1.y);
+    printf("cv1.z = %hd\n", cv1.z);
+    puts("----     ----    ----    ----    ----");
+    cv1 = call_value(cv1);//call by value
+    printf("cv1.x = %i\n", cv1.x);
+    printf("cv1.y = %i\n", cv1.y);
+    printf("cv1.z = %hd\n", cv1.z);
+
+    puts("------------------------------------------------------------");
+    puts("Call by reference with struct:\n");
+
+    struct car cv2 = {1,2,3};
+    printf("cv2.x = %i\n", cv2.x);
+    printf("cv2.y = %i\n", cv2.y);
+    printf("cv2.z = %hd\n", cv2.z);
+    puts("----     ----    ----    ----    ----");
+    call_reference(&cv2);//call by reference
+    printf("cv2.x = %i\n", cv2.x);
+    printf("cv2.y = %i\n", cv2.y);
+    printf("cv2.z = %hd\n", cv2.z);
+
+    puts("------------------------------------------------------------");
+    puts("Nested struct:\n");
+    puts("--> Nested struct is allowed in C, but inner struct can not be of the same type of outer struct");
+    struct manager m1;
+    m1.id = 1012;
+    m1.m.id = 870;
+    m1.m.sallary = 10000.500;
+
+    printf("m1.id        = %i\n", m1.id);
+    printf("m1.m.id      = %i\n", m1.m.id);
+    printf("m1.m.sallary = %0.3f\n", m1.m.sallary);
+
+    puts("------------------------------------------------------------");
+    puts("Pointers with nested struct:\n");
+
+    struct manager *mptr = &m1;
+    mptr -> id = 5060;
+    mptr -> m.id = 8090;
+    mptr -> m.sallary = 10605.6654;
+    printf("mptr -> id        = %i\n", mptr -> id);
+    printf("mptr -> m.id      = %i\n", mptr -> m.id);
+    printf("mptr -> m.sallary = %0.3f\n", mptr -> m.sallary);
+
+    puts("------------------------------------------------------------");
+    puts("Struct pointer int struct:\n");
+
+    struct customer cs1;
+    struct customer cs2;
+    cs1.number = 1000;
+    cs2.number = 2000;
+    (cs2.c) -> cs1;
+
 
     puts("**************************************************");
     return 0;
 }
 
+/*Function implementation section:*/
+
+struct car call_value(struct car cv)
+{
+    cv.x = 1000;
+    cv.y = 70;
+    cv.z = 20;
+    return cv;
+}
+
+
+void call_reference(struct car *ptr)
+{
+    ptr -> x = 500;
+    ptr -> y = 800;
+    ptr -> z = 300;
+
+}
