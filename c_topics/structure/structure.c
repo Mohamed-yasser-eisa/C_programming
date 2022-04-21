@@ -2,13 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+/*strcuture definition does not consume any memory*/
+/*structure definition is just a declaration for the compiler to the new data type.*/
 struct car
 {
     int x;
     int y;
     short z;
-}f = {10,22,33};
-
+}f = {10,22,33};/*here we created variable 'f' of datatype: (struct car) it reserve a memory location. */
+ 
 struct student
 {
     int Id;
@@ -21,7 +24,7 @@ struct client
 {
     int id;
     float sallary;
-};
+}global_struct;
 
 struct manager
 {
@@ -80,6 +83,22 @@ int main()
     printf("&st1.name[0]     = %i\n", &st1.name[0]);
     printf("&st1.name[1]     = %i\n", &st1.name[1]);
     printf("&st1.name[0] + 1 = %i\n", &st1.name[0]+1);
+
+    puts("--------------------------------------------------------------");
+    puts("Local and global struct variables:");
+
+    puts("--> default value for global struct members = 0");
+    puts("--> default value for local struct members = garbage value.\n");
+
+    struct client local_struct;
+
+    printf("global_struct.id      = %i\n", global_struct.id);
+    printf("global_struct.sallary = %0.2f\n\n", global_struct.sallary);
+
+    printf("local_struct.id      = %i\n", local_struct.id);
+    printf("local_struct.sallary = %0.2f\n", local_struct.sallary);
+
+
 
     puts("--------------------------------------------------------------");
     puts("Please enter date of 4 days:");
@@ -222,7 +241,27 @@ int main()
     struct customer cs2;
     cs1.number = 1000;
     cs2.number = 2000;
-    (cs2.c) -> cs1;
+    (cs2.c) = &cs1;
+    
+    printf("(cs2.c) -> number = %i\n", (*cs2.c).number); //(cs2.c) -> number
+
+    puts("------------------------------------------------------------");
+    puts("size of struct:\n");
+
+    puts("--> size of struct = (sum of sizes of all members + struct padding).");
+    puts("--> so size of any struct >= sum of sizes of all members.\n");
+
+    printf("size of struct car      = %i\n", sizeof(struct car));
+    printf("size of struct client   = %i\n", sizeof(struct client));
+    printf("size of struct manager  = %i\n", sizeof(struct manager));
+    printf("size of struct customer = %i\n", sizeof(struct customer));
+    printf("size of struct student  = %i\n\n", sizeof(struct student));
+
+    puts("--> size of struct != sum of sizes of all members due to \"strcuture padding\".");
+    puts("--> (structure padding) is optimization done by the compiler to make programe execution faster");
+    puts("--> In (structure padding) the compiler allocate unused memory locations free between struct members to make");
+    puts("      each member read/write in one clock cycle if it is posible.");
+
 
 
     puts("**************************************************");
@@ -242,8 +281,8 @@ struct car call_value(struct car cv)
 
 void call_reference(struct car *ptr)
 {
-    ptr -> x = 500;
-    ptr -> y = 800;
-    ptr -> z = 300;
+    ptr -> x = 500; //*ptr.x
+    ptr -> y = 800;//*ptr.y
+    ptr -> z = 300;//*ptr.z
 
 }
