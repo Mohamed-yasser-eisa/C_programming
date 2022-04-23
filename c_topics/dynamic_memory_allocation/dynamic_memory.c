@@ -3,7 +3,7 @@
 #include <string.h>
 
 typedef unsigned short int uint16;
-typedef unsigned long int uint32;
+typedef unsigned long  int uint32;
 
 /*there are 4 functions which are used in dynamic memory allocation: ( malloc(), calloc(), realloc(), free() ). */
 /*these functions definition is located in <stdlib.h> */
