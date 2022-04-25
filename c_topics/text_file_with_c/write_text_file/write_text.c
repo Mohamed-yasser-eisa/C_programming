@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /****************************************************************************************
 * Steps to write a txt file:
@@ -25,7 +26,9 @@
 *   11--> "wt" (write txt) open file for writting, if file not exist create it, if file exist delete its content and write.
 *   12--> "at" (append mode) open txt file for writting at the end, if file not exist create it.
 *   13--> "r+b" or "rb+" open binary file for read/write, binary file MUST exist.
-*   14-->
+*   14-->....
+*   15--> "r+t" or "rt+" open txt file for both read/write, the txt file MUST exist.
+*   16--> "w+t" or "wt+" open txt file for both read/write, if txt file not exist create it. If it exist delete its data.
 *
 ******************************************************************************************/
 
@@ -34,9 +37,10 @@ int main()
 {
     puts("************************************************");
     char* fileName = "data.txt";
-    char data[100];
+    char data[10];
     /* first you need to create a pointer of type FILE, to hold location of your txt file: */
     FILE* filePointer = fopen(fileName, "wt"); //file pointer which is set to write only.
+    
 
     /*check if you can not open file: */
     if(NULL == filePointer)
@@ -50,8 +54,12 @@ int main()
     {
         printf("(%i)Please enter your name: ", i);
         fflush(stdin);
-        gets(data);
+        //gets(data);
+        fgets(data, 10, stdin);//read string from input buffer of size 10 only
         fprintf(filePointer, "%s\n",data);
+        //fwrite(data, sizeof(char), strlen(data), filePointer);
+        //sprintf(data, "%s\n", "Hello! I'm your computer");
+        //fprintf(filePointer, "%s\n",data);
         /* Or use fputs(); to write string without paces: */
         //fputs(data, filePointer);
     }
